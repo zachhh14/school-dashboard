@@ -13,7 +13,9 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        return Inertia::render('subject/Index');
+        return Inertia::render('subject/Index',[
+            'subjects' => Subject::all(),
+        ]);
     }
 
     /**
@@ -29,13 +31,13 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        logger($request);
         Subject::create([
-            'user_id' => 1,
+            'user_id' => $request->userId,
             'subject_code' => $request->subjectCode,
             'subject_name' => $request->subjectName,
         ]);
 
+        return redirect()->route('subjects.index');
     }
 
     /**
