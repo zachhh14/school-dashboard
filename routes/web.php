@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SampleController;
+use App\Http\Controllers\SchoolDashboardController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,11 @@ use App\Http\Controllers\SampleController;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
+// Route::get('/', function () {
+//     return view('app');
+// });
+Route::get('/', [SchoolDashboardController::class, 'index']);
 
-route::get('/sample', [SampleController::class, 'index']);
+route::get('subjects', [SubjectController::class, 'index']);
+route::get('create-subject', [SubjectController::class, 'create']);
+route::post('post-subject', [SubjectController::class, 'store']);
