@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubjectPostRequest;
 use App\Models\Subject;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
@@ -29,12 +30,25 @@ class SubjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function soldtore(Request $request)
     {
         Subject::create([
             'user_id' => $request->userId,
             'subject_code' => $request->subjectCode,
             'subject_name' => $request->subjectName,
+        ]);
+
+        return redirect()->route('subjects.index');
+    }
+
+    public function store(SubjectPostRequest $request)
+    {
+        $validated = $request->validated();
+
+        Subject::create([
+            'user_id' => $validated['userId'],
+            'subject_code' => $validated['subjectCode'],
+            'subject_name' => $validated['subjectName'],
         ]);
 
         return redirect()->route('subjects.index');
