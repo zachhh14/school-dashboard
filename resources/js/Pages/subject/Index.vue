@@ -3,14 +3,17 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 
 const subjects = ref([]);
+const noSubjects = ref(false);
 onMounted(()=>{
     getSubjects();
 })
+
 async function getSubjects(){
     try {
         const response = await axios.get('/subject/list')
-
-        subjects.value = response.data;
+        if(response){
+            subjects.value = response.data;
+        }
     } catch (err) {
         alert('Error');
     }
@@ -38,32 +41,37 @@ async function deleteSubject(id){
                 </tr>
             </thead>
             <tbody>
+                <template v-if="subjects.length == 0">
+                    <tr>
+                        <td colspan="4" class="text-center fw-bold">
+                            There are no existing subject ATM!!
+                        </td>
+                    </tr>
+                </template>
                 <tr v-for="subject in subjects" :key="subject.id">
                     <td>{{ subject.subject_code }}</td>
                     <td>{{ subject.subject_name }}</td>
                     <td>{{ subject.schedule ?? 'No Schedule' }}</td>
                     <td class="d-flex justify-content-center">
                         <button
-                            type="button"
-                            class="btn btn-light border me-2"
-                            >
+                        type="button"
+                        class="btn btn-light border me-2"
+                        >
                             View
                         </button>
                         <button
                             type="button"
                             class="btn btn-danger"
                             @click="deleteSubject(subject.id)"
-                        >
+                            >
                             Delete
                         </button>
                     </td>
                 </tr>
-
-
             </tbody>
         </table>
-    </div>
 
+    </div>
     <a href="/create-subject">
         <button class="btn btn-success">Add Subject</button>
     </a>

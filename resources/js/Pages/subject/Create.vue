@@ -2,34 +2,39 @@
 import { reactive, ref } from 'vue';
 import axios from 'axios';
 
+const errors = ref(null);
 
 const subjectForm = reactive({
     userId: 1, // for debugging
     subjectCode: '',
     subjectName: ''
 })
-const sample = ref()
 
 async function createSubject(){
     try {
         const response = await axios.post('/post-subject',{ ...subjectForm });
-
         if (response) {
-            // Redirect to another page after successful creation
-            window.location.href = '/subjects';  // Adjust the URL as needed
-        } else {
-            // Handle other success scenarios if necessary
-            console.log('Subject creation was not successful:', response.data.message);
-            alert('An error occurred while creating the subject.');
+            window.location.href = '/subjects';
         }
-    } catch (err) {
-        console.error('Error creating subject:', err);
-        alert('An error occurred while creating the subject.');
+    } catch (error) {
+        if (error.response.status === 422) {
+            errors.value = error.response.data.errors;
+        }
     }
 }
 </script>
 
 <template>
+    <div v-if="errors" class="text-danger">
+        <div
+            class="alert alert-danger"
+            role="alert"
+            v-for="(messages, field) in errors"
+            :key="field"
+        >
+            {{ messages[0] }}
+        </div>
+    </div>
     <h1>Create Subject</h1>
     <form @submit.prevent="createSubject">
         <input type="hidden" v-model="subjectForm.userId">

@@ -20,7 +20,7 @@
         <title>{{ env('APP_NAME')}}</title>
     </head>
     <body>
-        <div class="container">
+        <div class="container pt-5">
             @inertia
         </div>
     </body>
