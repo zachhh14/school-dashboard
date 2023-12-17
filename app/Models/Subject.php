@@ -12,4 +12,14 @@ class Subject extends Model
     protected $table = 'subjects';
 
     protected $guarded = [];
+
+    /**
+     * Get all of the quizzes for the Subject
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function quizzes(): HasMany
+    {
+        return $this->hasMany(Quiz::class);
+    }
 }

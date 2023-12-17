@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\SubjectApiController;
 use App\Http\Controllers\ReviewerDashboardController;
 use App\Http\Controllers\SchoolDashboardController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ route::get('subjects', [SubjectController::class, 'index'])->name('subjects.inde
 route::get('create-subject', [SubjectController::class, 'create']);
 route::post('post-subject', [SubjectController::class, 'store']);
 Route::get('reviewer-dashboard', [ReviewerDashboardController::class, 'index']);
+Route::get('reviewer/{subject_id}', [QuizController::class, 'index'])
+    ->name('reviewer');
 
 // API routes
 Route::apiResource('subject/list', SubjectApiController::class)->only([
