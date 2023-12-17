@@ -7,7 +7,9 @@
                 <button class="btn btn-success me-2">Subjects</button>
             </a>
             <button class="btn btn-info me-2">To-do List</button>
-            <button class="btn btn-danger me-2">Reviewer</button>
+            <a href="/reviewer-dashboard">
+               <button class="btn btn-danger me-2">Reviewer</button>
+            </a>
             <button class="btn btn-dark me-2">Schedule</button>
             <button class="btn btn-warning">Profile</button>
         </div>
