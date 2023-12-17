@@ -17,8 +17,11 @@
             </script>
         @vite('resources/js/app.js')
         @inertiaHead
+        <title>{{ env('APP_NAME')}}</title>
     </head>
     <body>
-        @inertia
+        <div class="container pt-5">
+            @inertia
+        </div>
     </body>
 </html>
