@@ -8,7 +8,8 @@
             </a>
             <button class="btn btn-info me-2">To-do List</button>
             <button class="btn btn-danger me-2">Reviewer</button>
-            <button class="btn btn-dark">Schedule</button>
+            <button class="btn btn-dark me-2">Schedule</button>
+            <button class="btn btn-warning">Profile</button>
         </div>
     </div>
 </template>
