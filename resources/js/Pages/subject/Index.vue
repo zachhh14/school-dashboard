@@ -3,7 +3,6 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 
 const subjects = ref([]);
-const noSubjects = ref(false);
 onMounted(()=>{
     getSubjects();
 })
@@ -22,7 +21,9 @@ async function getSubjects(){
 async function deleteSubject(id){
     try{
         const response = await axios.get(`/delete-subject/${id}`)
-        getSubjects();
+        if (response){
+            getSubjects();
+        }
     } catch (err){
         alert('error');
     }
@@ -70,8 +71,10 @@ async function deleteSubject(id){
                 </tr>
             </tbody>
         </table>
-
     </div>
+    <a href="/" class="me-2">
+        <button class="btn btn-warning">Back to Dashboard</button>
+    </a>
     <a href="/create-subject">
         <button class="btn btn-success">Add Subject</button>
     </a>
