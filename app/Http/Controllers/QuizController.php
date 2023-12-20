@@ -24,9 +24,13 @@ class QuizController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($quiz_id)
     {
-        //
+        $quiz = Quiz::findOrFail($quiz_id);
+
+        return Inertia::render('reviewer/Create',[
+            'quiz' => $quiz
+        ]);
     }
 
     /**
@@ -35,9 +39,9 @@ class QuizController extends Controller
     public function store(Request $request)
     {
         $quiz = Quiz::create([
-                'subject_id' => $request->subject_id,
-                'quiz_name' => $request->quiz_name,
-            ]);
+            'subject_id' => $request->subject_id,
+            'quiz_name' => $request->quiz_name,
+        ]);
 
         return redirect(route('reviewer', ['subject_id' => $request->subject_id]));
     }
@@ -47,7 +51,11 @@ class QuizController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $quiz = Quiz::find($id);
+
+        return Inertia::render('reviewer/Show',[
+            'quiz' => $quiz,
+        ]);
     }
 
     /**
@@ -55,7 +63,7 @@ class QuizController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**

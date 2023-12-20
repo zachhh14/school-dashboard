@@ -32,6 +32,11 @@ Route::get('reviewer-dashboard', [ReviewerDashboardController::class, 'index']);
 Route::get('reviewer/{subject_id}', [QuizController::class, 'index'])
     ->name('reviewer');
 
+Route::get('quiz/{id}', [QuizController::class, 'show'])
+    ->name('show.quiz');
+Route::get('add-question/{id}', [QuizController::class, 'create'])
+    ->name('create.quiz');
+
 // API routes
 Route::apiResource('subject/list', SubjectApiController::class)->only([
     'index'

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 
 class QuizApiController extends Controller
@@ -33,9 +34,9 @@ class QuizApiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Quiz $quiz)
     {
-        //
+        return response()->json($quiz->questionnaire);
     }
 
     /**

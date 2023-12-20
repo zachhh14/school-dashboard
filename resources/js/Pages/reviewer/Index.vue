@@ -2,45 +2,48 @@
 import axios from "axios";
 import Dashboard from "../../components/Dashboard.vue";
 import Modal from "../../components/Modal.vue";
-import { reactive, onMounted,ref } from "vue";
+import { reactive, onMounted, ref } from "vue";
 
 const quizzes = ref([]);
 const props = defineProps({
     subject: Object,
 });
 
-onMounted(()=>{
+onMounted(() => {
     getQuiz();
-})
+});
 
 const quizForm = reactive({
     subject_id: props.subject.id,
     quiz_name: "",
 });
 
-async function getQuiz(){
-    try{
-        const response = await axios.get('/api/reviewer/list',{
-            params:{
-                'subject_id': props.subject.id,
-            }
+async function getQuiz() {
+    try {
+        const response = await axios.get("/api/reviewer/list", {
+            params: {
+                subject_id: props.subject.id,
+            },
         });
 
         quizzes.value = response.data;
-    } catch(error){
+    } catch (error) {
         console.error(error);
     }
 }
 
-async function createQuiz(){
-    try{
-        const response = await axios.post('/create-quiz',{
-            ...quizForm
+async function createQuiz() {
+    try {
+        const response = await axios.post("/create-quiz", {
+            ...quizForm,
         });
-
-    } catch(error){
+    } catch (error) {
         console.error(error);
     }
+}
+
+function redirectTo(id) {
+    window.location.href = `/quiz/${id}`;
 }
 </script>
 
@@ -48,8 +51,10 @@ async function createQuiz(){
     <h1>Quiz for {{ subject.subject_name }}</h1>
     <Dashboard>
         <ul>
-            <li v-for="quiz in quizzes">
-                {{ quiz.quiz_name }}
+            <li v-for="quiz in quizzes" @click="redirectTo(quiz.id)">
+                <a class="pe-auto">
+                    {{ quiz.quiz_name }}
+                </a>
             </li>
         </ul>
     </Dashboard>
@@ -81,7 +86,6 @@ async function createQuiz(){
                 class="btn btn-primary"
             >
                 Submit
-
             </button>
         </form>
     </Modal>
