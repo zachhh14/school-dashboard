@@ -56,8 +56,6 @@ class QuestionnaireApiController extends Controller
      */
     public function destroy(string $id)
     {
-        // $questionnaire = Questionnaire::findOrFail($id);
-
         Questionnaire::destroy($id);
 
         return response()->json([
