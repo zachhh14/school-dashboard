@@ -3,24 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Subject;
+use App\Models\Quiz;
 use Inertia\Inertia;
 
-class SampleController extends Controller
+class QuizController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($subject_id)
     {
-        return Inertia::render('HelloWorld');
+        $subject = Subject::findOrFail($subject_id);
+
+        return Inertia::render('reviewer/Index', [
+            'subject' => $subject,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($quiz_id)
     {
-        //
+        $quiz = Quiz::findOrFail($quiz_id);
+
+        return Inertia::render('reviewer/Create',[
+            'quiz' => $quiz
+        ]);
     }
 
     /**
@@ -28,7 +38,12 @@ class SampleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $quiz = Quiz::create([
+            'subject_id' => $request->subject_id,
+            'quiz_name' => $request->quiz_name,
+        ]);
+
+        return redirect(route('reviewer', ['subject_id' => $request->subject_id]));
     }
 
     /**
@@ -36,7 +51,11 @@ class SampleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $quiz = Quiz::find($id);
+
+        return Inertia::render('reviewer/Show',[
+            'quiz' => $quiz,
+        ]);
     }
 
     /**
@@ -44,7 +63,7 @@ class SampleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
