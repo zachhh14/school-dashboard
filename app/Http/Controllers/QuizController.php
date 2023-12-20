@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Subject;
+use App\Models\Quiz;
+use Inertia\Inertia;
 
 class QuizController extends Controller
 {
@@ -14,8 +16,9 @@ class QuizController extends Controller
     {
         $subject = Subject::findOrFail($subject_id);
 
-        return $subject;
-
+        return Inertia::render('reviewer/Index', [
+            'subject' => $subject,
+        ]);
     }
 
     /**
@@ -31,7 +34,12 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $quiz = Quiz::create([
+                'subject_id' => $request->subject_id,
+                'quiz_name' => $request->quiz_name,
+            ]);
+
+        return redirect(route('reviewer', ['subject_id' => $request->subject_id]));
     }
 
     /**
