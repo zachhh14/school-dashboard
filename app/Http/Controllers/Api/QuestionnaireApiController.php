@@ -38,9 +38,9 @@ class QuestionnaireApiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Questionnaire $questionnaire)
     {
-        //
+        return response()->json($questionnaire);
     }
 
     /**
