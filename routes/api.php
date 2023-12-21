@@ -28,5 +28,5 @@ Route::apiResource('quiz', QuizApiController::class)->only([
 ]);
 
 Route::apiResource('questionnaire', QuestionnaireApiController::class)->only([
-    'store', 'destroy'
+    'store', 'destroy','show'
 ]);

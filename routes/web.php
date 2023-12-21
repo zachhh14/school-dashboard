@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\QuizApiController;
 use App\Http\Controllers\ReviewerDashboardController;
 use App\Http\Controllers\SchoolDashboardController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\QuizController;
 
 /*
@@ -36,6 +37,8 @@ Route::get('quiz/{id}', [QuizController::class, 'show'])
     ->name('show.quiz');
 Route::get('add-question/{id}', [QuizController::class, 'create'])
     ->name('create.quiz');
+
+Route::post('upload/questionnaire', [QuestionnaireController::class, 'import']);
 
 // API routes
 Route::apiResource('subject/list', SubjectApiController::class)->only([
