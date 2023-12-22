@@ -48,7 +48,18 @@ class QuestionnaireApiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $question = Questionnaire::findOrFail($id);
+
+        $validated = $request->validate([
+            'question' => 'required',
+            'answer' => 'required',
+        ]);
+
+        $question->update($validated);
+
+        return response()->json([
+            'message' => 'Question updated succesfully'
+        ]);
     }
 
     /**
